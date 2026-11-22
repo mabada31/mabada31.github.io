@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مكتبة الأسرار | كتب ونصايع تربوية رقمية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f1720; --card:#17222d; --card2:#1d2b38; --line:#2b3d4d;
+    --gold:#e8b54a; --gold2:#f5cf7a; --ink:#f4f1e8; --muted:#a8b4bf;
+    --green:#22c55e; --red:#ef4444;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo','Noto Kufi Arabic',Tahoma,sans-serif}
+  body{background:var(--bg);color:var(--ink);line-height:1.8}
+  .wrap{max-width:520px;margin:0 auto;padding:0 16px}
+
+  header{padding:18px 0 6px;display:flex;align-items:center;gap:10px}
+  .logo{font-size:26px}
+  .brand{font-weight:900;font-size:22px;color:var(--gold)}
+  .brand small{display:block;font-size:12px;color:var(--muted);font-weight:400}
+
+  .hero{padding:26px 0 10px;text-align:center}
+  .hero h1{font-size:26px;font-weight:900;line-height:1.5}
+  .hero h1 em{font-style:normal;color:var(--gold)}
+  .hero p{color:var(--muted);margin-top:10px;font-size:15px}
+
+  .sec-title{font-size:20px;font-weight:900;margin:28px 0 12px;display:flex;align-items:center;gap:8px}
+  .sec-title::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  .product{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:14px}
+  .product .cover{text-align:center;background:linear-gradient(145deg,#233646,#15212b);border-radius:12px;padding:22px 0;margin-bottom:12px}
+  .product .cover .big100{font-size:52px;font-weight:700;color:var(--gold);line-height:1.2}
+  .product .cover .small{font-size:15px;color:var(--muted);font-weight:700}
+  .product h3{font-size:18px;font-weight:700}
+  .product .tag{display:inline-block;background:#2b3d4d;color:var(--gold2);font-size:12px;border-radius:20px;padding:2px 10px;margin:6px 6px 0 0}
+  .product p{color:var(--muted);font-size:14px;margin-top:8px}
+  .product .row{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+  .price{font-size:22px;font-weight:900;color:var(--gold)}
+  .price small{font-size:13px;color:var(--muted);font-weight:400}
+  .btn{background:var(--gold);color:#1a1205;border:0;border-radius:12px;padding:10px 18px;font-size:15px;font-weight:700;cursor:pointer}
+  .btn:active{transform:scale(.97)}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--muted)}
+  .btn.wa{background:var(--green);color:#fff}
+
+  .soon{background:var(--card);border:1px dashed var(--line);border-radius:16px;padding:18px;margin-bottom:14px;text-align:center;color:var(--muted)}
+  .about p{color:var(--muted);font-size:14.5px}
+  .about b{color:var(--gold2)}
+  .aboutlist{list-style:none;margin-top:6px}
+  .aboutlist li{font-size:14.5px;color:var(--muted);padding:8px 14px;background:var(--card2);border-radius:10px;margin-bottom:8px}
+  .aboutlist.examples li{border-right:3px solid var(--gold)}
+
+  .steps{counter-reset:s;list-style:none}
+  .steps li{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px;font-size:14.5px;position:relative;padding-right:52px}
+  .steps li::before{counter-increment:s;content:counter(s);position:absolute;right:14px;top:14px;width:26px;height:26px;border-radius:50%;background:var(--gold);color:#1a1205;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:14px}
+  .steps b{color:var(--gold2)}
+  .paynum{direction:ltr;display:inline-block;background:#0b1117;border:1px dashed var(--gold);border-radius:8px;padding:1px 10px;font-weight:700;color:var(--gold2)}
+  .ph-note{font-size:12px;color:var(--red)}
+
+  .disclaimer{background:#22160b;border:1px solid #5b4a1e;border-radius:14px;padding:14px 16px;font-size:13.5px;color:#e8d9ae;margin:24px 0}
+
+  footer{text-align:center;color:var(--muted);font-size:13px;padding:20px 0 90px}
+
+  /* cart bar */
+  #cartbar{position:fixed;bottom:0;right:0;left:0;background:#101a24;border-top:1px solid var(--line);padding:10px 16px;display:none;align-items:center;justify-content:space-between;z-index:20}
+  #cartbar.on{display:flex}
+  #cartbar .total{font-weight:900;color:var(--gold)}
+
+  /* checkout modal */
+  #modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:30;align-items:flex-end;justify-content:center}
+  #modal.on{display:flex}
+  .sheet{background:var(--card);border-radius:20px 20px 0 0;width:100%;max-width:520px;max-height:92vh;overflow-y:auto;padding:20px}
+  .sheet h3{font-size:18px;font-weight:900;margin-bottom:4px}
+  .sheet .sub{color:var(--muted);font-size:13px;margin-bottom:14px}
+  .cartitem{display:flex;justify-content:space-between;background:var(--card2);border-radius:10px;padding:8px 12px;margin-bottom:8px;font-size:14px}
+  .cartitem button{background:none;border:0;color:var(--red);cursor:pointer;font-size:16px}
+  label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
+  input,select{width:100%;background:#0b1117;border:1px solid var(--line);border-radius:10px;color:var(--ink);padding:11px 12px;font-size:15px}
+  .hint{font-size:12px;color:var(--muted);margin-top:4px}
+  .paybox{background:#0b1117;border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:12px;font-size:14px}
+  .sheet .total-row{display:flex;justify-content:space-between;font-weight:900;font-size:17px;margin:14px 0;border-top:1px solid var(--line);padding-top:12px}
+  .close-x{background:none;border:0;color:var(--muted);font-size:22px;cursor:pointer;float:left}
+  #okmsg{display:none;text-align:center;padding:30px 10px}
+  #okmsg .big{font-size:52px}
+
+  /* floating WhatsApp */
+  #wafab{position:fixed;bottom:74px;left:14px;z-index:25;background:var(--green);color:#fff;border-radius:50%;width:52px;height:52px;display:flex;align-items:center;justify-content:center;font-size:24px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="logo">📚</div>
+    <div class="brand">مكتبة الأسرار
+      <small>كتب ونصايع رقمية توصلك على واتساب</small>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>أسرار بسيطة… <em>وفرق كبير</em> في بيتك</h1>
+    <p>كتب عملية بالعامية المصرية، تقرأها أو تسمعها، وتطبقها مع عيلتك من أول يوم.</p>
+  </section>
+
+  <h2 class="sec-title">الكتب المتاحة</h2>
+  <div id="products"></div>
+
+  <h2 class="sec-title">عن الكتاب</h2>
+  <div class="product about">
+    <p>طفلك سايب الأكل؟ النوم بيتأخر؟ والموبايل بقى جزء من اليوم؟ الكتاب ده بيحوّل الحيرة لخطوات صغيرة تقدر تطبقها في بيتك من أول يوم، بالعامية المصرية ومن غير تعقيد.</p>
+    <p style="margin-top:10px">الـ ١٠٠ سر مقسومين على قسمين:</p>
+    <ul class="aboutlist">
+      <li><b>٥٠ سر لأساسيات صحة الجسم:</b> الأكل المتنوع، النوم، الحركة والشاشات، أمان البيت، وصحة الأسرة كلها.</li>
+      <li><b>٥٠ سر للتربية ومهارات الحياة:</b> الأمان النفسي والحدود المحترمة، الصدق، الثقة والاختيار والاستقلال، المسؤولية والوقت والروتين، والوعي بالمال.</li>
+    </ul>
+    <p style="margin-top:10px">للأمهات والآباء من سن سنة لـ ٦ سنين. كل سر فيه فكرة بسيطة، وخطوة <b>"جرّب كده"</b> تطبقها على طول، وتنبيه <b>"خد بالك"</b> يخليك مركّز على المهم.</p>
+    <p style="margin-top:10px">أمثلة حقيقية من جواه:</p>
+    <ul class="aboutlist examples">
+      <li>سر ١: التنويع أهم من مطاردة الأكلة السحرية</li>
+      <li>سر ٢: اسمع إشارة الشبع بدل ما تطارد آخر معلقة</li>
+      <li>سر ٣: قعدة الأكل جزء من أمانه</li>
+    </ul>
+    <p style="margin-top:10px">بتوصلك نسخة <b>PDF</b> (١٢٦ صفحة) تقرأها على موبايلك + <b>الكتاب الصوتي</b> تسمعه في أي وقت.</p>
+  </div>
+
+  <h2 class="sec-title">جاي قريب</h2>
+  <div class="soon">✨ كتب جديدة في الطريق… تابعنا على واتساب عشان توصلك الأول</div>
+
+  <h2 class="sec-title">بتطلب إزاي؟</h2>
+  <ol class="steps">
+    <li>اختار الكتاب ودوس <b>أضف للسلة</b>.</li>
+    <li>حوّل المبلغ على <b>إنستاباي</b> أو <b>فودافون كاش</b> على الرقم <span class="paynum">01029559504</span>.</li>
+    <li>ابعت <b>صورة التحويل (سكرين شوت)</b> على واتساب <span class="paynum">01029559504</span> أو على الإيميل <b style="direction:ltr;display:inline-block">mabada31@gmail.com</b>.</li>
+    <li>بعد ما نأكد التحويل، هيوصلك الكتاب (PDF + الصوت) على <b>واتساب أو إيميلك</b> في أقرب وقت.</li>
+  </ol>
+
+  <div class="disclaimer">
+    ⚠️ <b>تنبيه مهم:</b> المحتوى في كتب مكتبة الأسرار نصايع وإرشادات عامة للتربية والعناية اليومية بالطفل، ومش بديل أبدًا عن استشارة دكتور الأطفال أو أي متخصص. لو عندك قلق على صحة طفلك، كلم دكتورك الأول.
+  </div>
+
+  <footer>
+    مكتبة الأسرار © ٢٠٢٦ — كل الحقوق محفوظة<br>
+    للاستفسار: دوس على زرار الواتساب الأخضر 💬
+  </footer>
+</div>
+
+<a id="wafab" href="#" title="كلمنا واتساب">💬</a>
+
+<div id="cartbar">
+  <div>السلة: <span id="cartcount">0</span> كتاب — <span class="total" id="carttotal">0</span> جنيه</div>
+  <button class="btn" id="opencart">إتمام الطلب</button>
+</div>
+
+<div id="modal">
+  <div class="sheet">
+    <button class="close-x" id="closemodal">✕</button>
+    <div id="formview">
+      <h3>🧾 إتمام الطلب</h3>
+      <div class="sub">راجع طلبك واملأ بياناتك، وبعد ما تبعت الطلب ابعتلنا صورة التحويل.</div>
+      <div id="cartitems"></div>
+
+      <div class="paybox">
+        💳 حوّل الإجمالي على إنستاباي أو فودافون كاش:<br>
+        <span class="paynum">01029559504</span>
+      </div>
+
+      <!--
+        NOTE (real mechanism, pending activation): this form posts to FormSubmit (formsubmit.co),
+        a free form-to-email service. First real submission sends an activation email to
+        mabada31@gmail.com that must be confirmed once; after that, orders arrive as emails
+        from formsubmit.co. No account needed. Free tier: no file uploads, email comes from
+        their address, and it depends on their service staying up.
+      -->
+      <form id="orderform" action="https://formsubmit.co/mabada31@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="طلب جديد من مكتبة الأسرار 📚">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="تفاصيل الطلب" id="f_items" value="">
+        <input type="hidden" name="الإجمالي" id="f_total" value="">
+
+        <label>اسمك</label>
+        <input type="text" name="الاسم" required placeholder="مثال: أحمد محمد">
+
+        <label>رقم الواتساب بتاعك</label>
+        <input type="tel" name="رقم الواتساب" required placeholder="01XXXXXXXXX" style="direction:rtl">
+
+        <label>الإيميل بتاعك</label>
+        <input type="email" name="الإيميل" required placeholder="example@gmail.com" style="direction:ltr;text-align:right">
+        <div class="hint">هيوصلك الكتاب على واتساب أو على إيميلك، زي ما يناسبك.</div>
+
+        <label>دفعت بإيه؟</label>
+        <select name="طريقة الدفع" required>
+          <option value="">اختار…</option>
+          <option value="إنستاباي">إنستاباي</option>
+          <option value="فودافون كاش">فودافون كاش</option>
+        </select>
+
+        <div class="paybox">
+          📸 <b>خطوة أخيرة بعد إرسال الطلب:</b> ابعت صورة التحويل (سكرين شوت)<br>
+          • على واتساب: <span class="paynum">01029559504</span><br>
+          • أو على الإيميل: <b style="direction:ltr;display:inline-block">mabada31@gmail.com</b>
+          <div class="hint">بنأكد وصول الفلوس من الصورة قبل ما نبعتلك الكتاب.</div>
+        </div>
+
+        <div class="total-row"><span>الإجمالي</span><span id="sheet_total">0 جنيه</span></div>
+        <button class="btn" style="width:100%" type="submit">ابعت الطلب على واتساب ✅</button>
+        <div class="hint" style="text-align:center;margin-top:8px">هيفتح واتساب برسالة جاهزة فيها تفاصيل طلبك — أرفق صورة التحويل وابعت.</div>
+        <button class="btn ghost" style="width:100%;margin-top:10px" type="button" id="emailorder">أو ابعت الطلب بالإيميل 📧</button>
+      </form>
+    </div>
+    <div id="okmsg">
+      <div class="big">🎉</div>
+      <h3>طلبك اتبعت!</h3>
+      <p class="sub" style="margin-top:8px">واتساب اتفتح برسالة فيها تفاصيل طلبك. أرفق صورة التحويل وابعت الرسالة، وأول ما نأكد هيوصلك الكتاب. لو واتساب ما اتفتحش، ابعت التفاصيل على الرقم 01029559504 أو على mabada31@gmail.com.</p>
+      <button class="btn ghost" id="closeok">تمام</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== Products: add new books here ===== */
+const PRODUCTS = [
+  {
+    id: 'secrets-100',
+    title: '١٠٠ سر لجسد سليم — تأسيس طفلك',
+    desc: '١٠٠ نصيحة عملية بالعامية المصرية لتأسيس عادات صحية لطفلك من سنة لـ٦ سنين: الأكل، النوم، النظافة، والحركة. بيوصلك نسخة PDF للقراءة + كتاب صوتي تسمعه في أي وقت.',
+    tags: ['PDF', 'كتاب صوتي 🎧', 'لأهل الأطفال من سنة لـ٦ سنين'],
+    price: 200,
+    cover: '📖'
+  }
+];
+
+const WA_NUMBER = '201029559504'; // owner's WhatsApp number (confirmed by user)
+const waFab = document.getElementById('wafab');
+waFab.href = 'https://wa.me/' + WA_NUMBER;
+
+/* ===== Catalog ===== */
+const fmt = n => n + ' جنيه';
+const prodWrap = document.getElementById('products');
+PRODUCTS.forEach(p => {
+  const el = document.createElement('div');
+  el.className = 'product';
+  el.innerHTML = `
+    <div class="cover"><div class="big100">١٠٠</div><div class="small">سر لجسد سليم</div></div>
+    <h3>${p.title}</h3>
+    <div>${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+    <p>${p.desc}</p>
+    <div class="row">
+      <button class="btn" data-add="${p.id}">أضف للسلة 🛒</button>
+      <div class="price">${p.price} <small>جنيه</small></div>
+    </div>`;
+  prodWrap.appendChild(el);
+});
+
+/* ===== Cart ===== */
+let cart = JSON.parse(localStorage.getItem('asrar_cart') || '[]');
+const save = () => localStorage.setItem('asrar_cart', JSON.stringify(cart));
+const inCart = id => cart.find(i => i.id === id);
+const total = () => cart.reduce((s, i) => s + PRODUCTS.find(p => p.id === i.id).price, 0);
+
+function renderCart() {
+  document.getElementById('cartcount').textContent = cart.length;
+  document.getElementById('carttotal').textContent = total();
+  document.getElementById('cartbar').classList.toggle('on', cart.length > 0);
+  document.getElementById('sheet_total').textContent = fmt(total());
+  const box = document.getElementById('cartitems');
+  box.innerHTML = cart.length ? '' : '<div class="sub">السلة فاضية — اختار كتاب الأول.</div>';
+  cart.forEach(i => {
+    const p = PRODUCTS.find(x => x.id === i.id);
+    const row = document.createElement('div');
+    row.className = 'cartitem';
+    row.innerHTML = `<span>${p.title}</span><span>${fmt(p.price)} <button data-rm="${p.id}" title="شيل">🗑</button></span>`;
+    box.appendChild(row);
+  });
+}
+
+document.addEventListener('click', e => {
+  const add = e.target.closest('[data-add]');
+  if (add) {
+    const id = add.dataset.add;
+    if (!inCart(id)) cart.push({id});
+    save(); renderCart();
+    add.textContent = 'في السلة ✓';
+    setTimeout(() => { add.innerHTML = 'أضف للسلة 🛒'; }, 1200);
+  }
+  const rm = e.target.closest('[data-rm]');
+  if (rm) { cart = cart.filter(i => i.id !== rm.dataset.rm); save(); renderCart(); }
+});
+
+/* ===== Modal ===== */
+const modal = document.getElementById('modal');
+document.getElementById('opencart').onclick = () => { document.getElementById('formview').style.display='block'; document.getElementById('okmsg').style.display='none'; renderCart(); modal.classList.add('on'); };
+document.getElementById('closemodal').onclick = () => modal.classList.remove('on');
+document.getElementById('closeok').onclick = () => { modal.classList.remove('on'); };
+modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('on'); });
+
+/* ===== Submit: WhatsApp first, email as backup ===== */
+const form = document.getElementById('orderform');
+
+function orderLines() {
+  const items = cart.map(i => PRODUCTS.find(p => p.id === i.id).title).join(' + ');
+  return {
+    items,
+    name: form['الاسم'].value.trim(),
+    phone: form['رقم الواتساب'].value.trim(),
+    email: form['الإيميل'].value.trim(),
+    method: form['طريقة الدفع'].value
+  };
+}
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  if (!cart.length) { alert('السلة فاضية!'); return; }
+  if (!form.reportValidity()) return;
+  const o = orderLines();
+  const msg =
+    'طلب جديد من مكتبة الأسرار 📚\n\n' +
+    'الكتاب: ' + o.items + '\n' +
+    'الإجمالي: ' + fmt(total()) + '\n' +
+    'الاسم: ' + o.name + '\n' +
+    'رقم الواتساب: ' + o.phone + '\n' +
+    'الإيميل: ' + o.email + '\n' +
+    'طريقة الدفع: ' + o.method + '\n\n' +
+    'هبعت صورة التحويل هنا 👇';
+  window.open('https://wa.me/201029559504?text=' + encodeURIComponent(msg), '_blank');
+  document.getElementById('formview').style.display = 'none';
+  document.getElementById('okmsg').style.display = 'block';
+});
+
+document.getElementById('emailorder').addEventListener('click', () => {
+  if (!cart.length) { alert('السلة فاضية!'); return; }
+  if (!form.reportValidity()) return;
+  const o = orderLines();
+  document.getElementById('f_items').value = o.items;
+  document.getElementById('f_total').value = fmt(total());
+  form.submit(); // posts to FormSubmit -> order email to the owner
+});
+
+renderCart();
+</script>
+</body>
+</html>
